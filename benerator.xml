@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<setup xmlns="http://databene.org/benerator/0.9.5"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://databene.org/benerator/0.9.5 benerator-0.9.5.xsd"
+        defaultEncoding="UTF-8"
+        defaultDataset="US"
+        defaultLocale="en_US"
+        defaultLineSeparator="\n">
+
+	<comment>
+		 Demonstrates how to extend benerator's interfaces for customizations
+	</comment>
+
+	<bean id="words" class="org.databene.domain.LoremIpsum.WordsGenerator"/>
+	<bean id="post" class="org.databene.domain.LoremIpsum.ParagraphsGenerator"/>
+	
+	<generate type="Transaction" count="10" consumer="ConsoleExporter">
+		<attribute name="comment" generator="WordsGenerator" />
+		<attribute name="line" generator="new org.databene.domain.LoremIpsum.WordsGenerator(10)" />
+		<attribute name="post" source="post" />
+	</generate>
+</setup>
